@@ -152,7 +152,6 @@ function updateResignationFields() {
   const isResignation = cause === "resignation";
   resignationDetails.hidden = !isResignation;
   resignationDetails.disabled = !isResignation;
-  document.querySelector("#indemnity-row").hidden = !isResignation;
 
   const employeeType = form.querySelector('input[name="employee-type"]:checked')?.value;
   if (!employeeType) {
