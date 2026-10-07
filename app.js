@@ -328,7 +328,7 @@ function calculate() {
   if (cause === "resignation" && resignationCompliance === "yes" && serviceYears >= 2) {
     const remainder = serviceDays % 360;
     const resignationYears = Math.floor(serviceDays / 360) + (remainder >= 180 ? remainder / 360 : 0);
-    /*indemnity = Math.min(salary, minimumWage * 2) / 2 * resignationYears;*/
+    indemnity = Math.min(salary, minimumWage * 2) / 2 * resignationYears;
   }
 
   const extrasUnavailable = noExtras.checked || (cause === "resignation" && resignationCompliance === "no");
