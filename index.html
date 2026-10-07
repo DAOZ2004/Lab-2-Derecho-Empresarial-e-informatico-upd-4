@@ -1,208 +1,1464 @@
 <!doctype html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#143b35">
+
   <title>Liquidación laboral | El Salvador</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css">
+
   <script src="app.js" defer></script>
 </head>
+
 <body>
+
   <header class="topbar">
+
     <a class="brand" href="#inicio" aria-label="Liquidación laboral, inicio">
       <span class="brand-mark" aria-hidden="true">L</span>
-      <span>LIQUIDACIÓN <span class="brand-light">LABORAL</span></span>
+
+      <span>
+        LIQUIDACIÓN
+        <span class="brand-light">LABORAL</span>
+      </span>
     </a>
-    <span class="topbar-note">EL SALVADOR <span aria-hidden="true">/</span> DERECHO LABORAL</span>
+
+    <span class="topbar-note">
+      EL SALVADOR
+      <span aria-hidden="true">/</span>
+      DERECHO LABORAL
+    </span>
+
   </header>
 
+
   <main id="inicio" class="layout">
+
     <section class="intro" aria-labelledby="page-title">
-      <p class="eyebrow"><span class="status-dot"></span> HERRAMIENTA EDUCATIVA</p>
-      <h1 id="page-title">Calcula tu<br><em>liquidación.</em></h1>
-      <p class="intro-copy">Una estimación clara de prestaciones laborales y jornadas especiales según el Código de Trabajo de El Salvador.</p>
+
+      <p class="eyebrow">
+        <span class="status-dot"></span>
+        HERRAMIENTA EDUCATIVA
+      </p>
+
+      <h1 id="page-title">
+        Calcula tu<br>
+        <em>liquidación.</em>
+      </h1>
+
+      <p class="intro-copy">
+        Una estimación clara de prestaciones laborales y jornadas especiales según el Código de Trabajo de El Salvador.
+      </p>
+
       <div class="intro-rule"></div>
-      <p class="intro-foot">Los importes son brutos y referenciales. Revisa la base legal y los supuestos antes de tomar decisiones.</p>
+
+      <p class="intro-foot">
+        Los importes son brutos y referenciales. Revisa la base legal y los supuestos antes de tomar decisiones.
+      </p>
+
     </section>
 
+
     <div class="workspace">
+
       <form id="calculator" autocomplete="off" novalidate>
+
+
+        <!-- =====================================================
+             00 · DATOS DEL TRABAJADOR
+        ====================================================== -->
+
         <section class="form-section" aria-labelledby="worker-title">
+
           <div class="section-heading">
+
             <span class="section-number">00</span>
-            <div><h2 id="worker-title">Datos del trabajador</h2></div>
-          </div>
-          <div class="fields-grid">
-            <label class="field field-wide" for="worker-name"><span>Nombre del trabajador</span><input id="worker-name" name="worker-name" type="text" maxlength="150" autocomplete="off"></label>
-            <div class="field field-wide" role="group" aria-labelledby="anonymous-data-label">
-              <span id="anonymous-data-label">¿Quieres que tus datos sean anónimos?</span>
-              <div class="choice-row binary-choice-row">
-                <label class="choice"><input type="radio" name="anonymous-data" value="yes" checked><span class="choice-indicator"></span><span>Sí</span></label>
-                <label class="choice"><input type="radio" name="anonymous-data" value="no"><span class="choice-indicator"></span><span>No</span></label>
-              </div>
+
+            <div>
+              <h2 id="worker-title">Datos del trabajador</h2>
             </div>
+
           </div>
+
+
+          <div class="fields-grid">
+
+            <label class="field field-wide" for="worker-name">
+
+              <span>Nombre del trabajador</span>
+
+              <input
+                id="worker-name"
+                name="worker-name"
+                type="text"
+                maxlength="150"
+                autocomplete="off"
+              >
+
+            </label>
+
+
+            <div
+              class="field field-wide"
+              role="group"
+              aria-labelledby="anonymous-data-label"
+            >
+
+              <span id="anonymous-data-label">
+                ¿Quieres que tus datos sean anónimos?
+              </span>
+
+              <div class="choice-row binary-choice-row">
+
+                <label class="choice">
+
+                  <input
+                    type="radio"
+                    name="anonymous-data"
+                    value="yes"
+                    checked
+                  >
+
+                  <span class="choice-indicator"></span>
+
+                  <span>Sí</span>
+
+                </label>
+
+
+                <label class="choice">
+
+                  <input
+                    type="radio"
+                    name="anonymous-data"
+                    value="no"
+                  >
+
+                  <span class="choice-indicator"></span>
+
+                  <span>No</span>
+
+                </label>
+
+              </div>
+
+            </div>
+
+          </div>
+
         </section>
+
+
+
+        <!-- =====================================================
+             01 · CAUSA DE TERMINACIÓN
+        ====================================================== -->
 
         <section class="form-section" aria-labelledby="cause-title">
+
           <div class="section-heading">
+
             <span class="section-number">01</span>
-            <div><h2 id="cause-title">Causa de terminación</h2><p>Selecciona una sola opción.</p></div>
+
+            <div>
+
+              <h2 id="cause-title">
+                Causa de terminación
+              </h2>
+
+              <p>
+                Selecciona una sola opción.
+              </p>
+
+            </div>
+
           </div>
+
+
           <div class="choice-row">
-            <label class="choice"><input type="radio" name="cause" value="dismissal" checked><span class="choice-indicator"></span><span>Despido injustificado</span></label>
-            <label class="choice"><input type="radio" name="cause" value="resignation"><span class="choice-indicator"></span><span>Renuncia voluntaria</span></label>
-          </div>
-          <fieldset id="dismissal-indemnity-panel" class="dismissal-indemnity-panel" aria-live="polite">
-            <legend>Indemnización por despido injustificado</legend>
-            <div class="fields-grid dismissal-fields">
-              <label class="field field-wide" for="dismissal-indemnity">
-                <span>Salario sujeto al tope legal × años laborados</span>
-                <span class="input-wrap"><span class="currency-prefix">$</span><input id="dismissal-indemnity" name="dismissal-indemnity" type="text" value="$0.00" readonly></span>
-              </label>
-            </div>
-          </fieldset>
-          <fieldset id="resignation-details" class="resignation-details" hidden disabled>
-            <legend>Datos de la renuncia</legend>
-            <div class="fields-grid resignation-fields">
-              <div class="field" role="group" aria-labelledby="employee-type-label">
-                <span id="employee-type-label">Tipo de empleado</span>
-                <div class="choice-row binary-choice-row">
-                  <label class="choice"><input type="radio" name="employee-type" value="head" required><span class="choice-indicator"></span><span>Jefe Departamental</span></label>
-                  <label class="choice"><input type="radio" name="employee-type" value="general" required><span class="choice-indicator"></span><span>Común</span></label>
-                </div>
-              </div>
-              <label class="field" for="job-title"><span>Cargo de la persona</span><input id="job-title" name="job-title" type="text" maxlength="100" required></label>
-              <p id="resignation-notice" class="legal-notice" role="status" aria-live="polite">Selecciona el tipo de empleado para consultar el aviso previo aplicable.</p>
-              <div class="field compliance-field" role="group" aria-labelledby="compliance-label">
-                <span id="compliance-label">¿Cumple con las condiciones legales para recibir indemnización por renuncia?</span>
-                <div class="choice-row binary-choice-row">
-                  <label class="choice"><input type="radio" name="resignation-compliance" value="yes" required><span class="choice-indicator"></span><span>Sí</span></label>
-                  <label class="choice"><input type="radio" name="resignation-compliance" value="no" required><span class="choice-indicator"></span><span>No</span></label>
-                </div>
-              </div>
-            </div>
-          </fieldset>
-        </section>
 
-        <section class="form-section" aria-labelledby="financial-title">
-          <div class="section-heading">
-            <span class="section-number">02</span>
-            <div><h2 id="financial-title">Salario y antigüedad</h2><p>Datos para determinar las bases de cálculo.</p></div>
-          </div>
-          <div class="fields-grid">
-            <label class="field field-wide" for="salary">
-              <span>Ingreso mensual <small>USD</small></span>
-              <span class="input-wrap"><span class="currency-prefix">$</span><input id="salary" name="salary" type="number" min="0.01" step="0.01" required inputmode="decimal"></span>
+            <label class="choice">
+
+              <input
+                type="radio"
+                name="cause"
+                value="dismissal"
+                checked
+              >
+
+              <span class="choice-indicator"></span>
+
+              <span>
+                Despido injustificado
+              </span>
+
             </label>
-            <label class="field" for="employment-start"><span>Fecha de inicio de labores</span><input id="employment-start" name="employment-start" type="date" required></label>
-            <label class="field" for="employment-end"><span>Fecha de finalización <small>Despido o renuncia</small></span><input id="employment-end" name="employment-end" type="date" required></label>
-            <label class="field" for="years"><span>Años laborados</span><input id="years" name="years" type="number" min="0" max="80" step="1" required inputmode="numeric" readonly></label>
-            <label class="field" for="months"><span>Meses laborados</span><input id="months" name="months" type="number" min="0" max="11" step="1" required inputmode="numeric" readonly></label>
-            <label class="field" for="extra-days"><span>Días adicionales</span><input id="extra-days" name="extra-days" type="number" min="0" max="29" step="1" inputmode="numeric" readonly></label>
-            <label class="field" for="minimum-wage"><span>Salario mínimo mensual <small>USD</small></span><span class="input-wrap"><span class="currency-prefix">$</span><input id="minimum-wage" name="minimum-wage" type="number" min="0.01" step="0.01" required inputmode="decimal"></span></label>
-            <label id="aguinaldo-field" class="field field-wide" for="aguinaldo"><span>Aguinaldo <small>proporcional si el despido ocurre antes del 1 de octubre</small></span><input id="aguinaldo" name="aguinaldo" type="text" value="$0.00" readonly></label>
+
+
+            <label class="choice">
+
+              <input
+                type="radio"
+                name="cause"
+                value="resignation"
+              >
+
+              <span class="choice-indicator"></span>
+
+              <span>
+                Renuncia voluntaria
+              </span>
+
+            </label>
+
           </div>
-          <p class="field-note">Confirma el salario mínimo mensual aplicable antes de calcular.</p>
+
+
+          <fieldset
+            id="dismissal-indemnity-panel"
+            class="dismissal-indemnity-panel"
+            aria-live="polite"
+          >
+
+            <legend>
+              Indemnización por despido injustificado
+            </legend>
+
+
+            <div class="fields-grid dismissal-fields">
+
+              <label
+                class="field field-wide"
+                for="dismissal-indemnity"
+              >
+
+                <span>
+                  Salario sujeto al tope legal × años laborados
+                </span>
+
+                <span class="input-wrap">
+
+                  <span class="currency-prefix">$</span>
+
+                  <input
+                    id="dismissal-indemnity"
+                    name="dismissal-indemnity"
+                    type="text"
+                    value="$0.00"
+                    readonly
+                  >
+
+                </span>
+
+              </label>
+
+            </div>
+
+          </fieldset>
+
+
+          <fieldset
+            id="resignation-details"
+            class="resignation-details"
+            hidden
+            disabled
+          >
+
+            <legend>
+              Datos de la renuncia
+            </legend>
+
+
+            <div class="fields-grid resignation-fields">
+
+
+              <div
+                class="field"
+                role="group"
+                aria-labelledby="employee-type-label"
+              >
+
+                <span id="employee-type-label">
+                  Tipo de empleado
+                </span>
+
+
+                <div class="choice-row binary-choice-row">
+
+                  <label class="choice">
+
+                    <input
+                      type="radio"
+                      name="employee-type"
+                      value="head"
+                      required
+                    >
+
+                    <span class="choice-indicator"></span>
+
+                    <span>
+                      Jefe Departamental
+                    </span>
+
+                  </label>
+
+
+                  <label class="choice">
+
+                    <input
+                      type="radio"
+                      name="employee-type"
+                      value="general"
+                      required
+                    >
+
+                    <span class="choice-indicator"></span>
+
+                    <span>
+                      Común
+                    </span>
+
+                  </label>
+
+                </div>
+
+              </div>
+
+
+              <label
+                class="field"
+                for="job-title"
+              >
+
+                <span>
+                  Cargo de la persona
+                </span>
+
+                <input
+                  id="job-title"
+                  name="job-title"
+                  type="text"
+                  maxlength="100"
+                  required
+                >
+
+              </label>
+
+
+              <p
+                id="resignation-notice"
+                class="legal-notice"
+                role="status"
+                aria-live="polite"
+              >
+                Selecciona el tipo de empleado para consultar el aviso previo aplicable.
+              </p>
+
+
+              <div
+                class="field compliance-field"
+                role="group"
+                aria-labelledby="compliance-label"
+              >
+
+                <span id="compliance-label">
+                  ¿Cumple con las condiciones legales para recibir indemnización por renuncia?
+                </span>
+
+
+                <div class="choice-row binary-choice-row">
+
+                  <label class="choice">
+
+                    <input
+                      type="radio"
+                      name="resignation-compliance"
+                      value="yes"
+                      required
+                    >
+
+                    <span class="choice-indicator"></span>
+
+                    <span>Sí</span>
+
+                  </label>
+
+
+                  <label class="choice">
+
+                    <input
+                      type="radio"
+                      name="resignation-compliance"
+                      value="no"
+                      required
+                    >
+
+                    <span class="choice-indicator"></span>
+
+                    <span>No</span>
+
+                  </label>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </fieldset>
+
         </section>
 
-        <section id="special-days-section" class="form-section" aria-labelledby="extras-title">
+
+
+        <!-- =====================================================
+             02 · SALARIO Y ANTIGÜEDAD
+        ====================================================== -->
+
+        <section
+          class="form-section"
+          aria-labelledby="financial-title"
+        >
+
           <div class="section-heading">
-            <span class="section-number">03</span>
-            <div><h2 id="extras-title">Jornadas y días especiales</h2><p>Acumulados pendientes de pago del período.</p></div>
+
+            <span class="section-number">02</span>
+
+            <div>
+
+              <h2 id="financial-title">
+                Salario y antigüedad
+              </h2>
+
+              <p>
+                Datos para determinar las bases de cálculo.
+              </p>
+
+            </div>
+
           </div>
-          <p id="extras-locked-note" class="locked-note" role="status" hidden>Bloqueado: no se cumplen las condiciones indicadas para la renuncia.</p>
-          <fieldset id="extras-fields" class="fields-grid extras-grid">
-            <label class="field" for="day-hours"><span>Horas extras diurnas <small>6 a. m. a 7 p. m.</small> </span> <input id="day-hours" name="day-hours" type="number" min="0" step="0.25" inputmode="decimal"></label>
-            <label class="field" for="night-hours"><span>Horas extras nocturnas <small>7 p. m. a 6 a. m.</small></span><input id="night-hours" name="night-hours" type="number" min="0" step="0.25" inputmode="decimal"></label>
-            <div class="field field-wide holiday-calendar-field" role="group" aria-labelledby="worked-holidays-label">
-              <span id="worked-holidays-label">¿Laboraste días de asueto?</span>
-              <div class="choice-row binary-choice-row">
-                <label class="choice"><input type="radio" name="worked-holidays" value="yes" required><span class="choice-indicator"></span><span>Sí</span></label>
-                <label class="choice"><input type="radio" name="worked-holidays" value="no" required><span class="choice-indicator"></span><span>No</span></label>
-              </div>
-              <div id="holiday-list-container" class="holiday-list-container" hidden>
-                <p class="holiday-list-note">Selecciona los asuetos nacionales que trabajaste durante el período indicado.</p>
-                <div id="holiday-list" class="holiday-list" role="group" aria-label="Lista de días de asueto"></div>
-                <p id="holiday-list-empty" class="holiday-list-empty" hidden>Indica las fechas de inicio y finalización de labores para mostrar los asuetos del período.</p>
-                <p id="holiday-selection-count" class="holiday-selection-count" role="status" aria-live="polite">0 días seleccionados</p>
-              </div>
-              <input id="holiday-days" name="holiday-days" type="hidden" value="0">
-            </div>
-            <div class="field field-wide vacation-payment-question" role="group" aria-labelledby="vacation-paid-label">
-              <span id="vacation-paid-label">¿Tus vacaciones ya fueron pagadas?</span>
-              <div class="choice-row binary-choice-row">
-                <label class="choice"><input type="radio" name="vacation-paid" value="yes" required><span class="choice-indicator"></span><span>Sí</span></label>
-                <label class="choice"><input type="radio" name="vacation-paid" value="no" required><span class="choice-indicator"></span><span>No</span></label>
-              </div>
-            </div>
-            <fieldset id="vacation-details" class="vacation-details field-wide" hidden>
-              <legend>Datos de la última jornada vacacional</legend>
-              <div class="fields-grid vacation-fields">
-                <div class="field field-wide">
-                  <span>¿Cuándo inició su última jornada vacacional?</span>
-                  <input id="last-vacation-start" name="last-vacation-start" type="date" required>
-                  <small id="vacation-rest-day" class="vacation-rest-day" role="status" aria-live="polite">Selecciona la fecha de inicio para identificar el séptimo día de descanso.</small>
-                  <label class="vacation-never-choice"><input id="no-previous-vacation" name="no-previous-vacation" type="checkbox"><span>No había tenido vacaciones anteriores</span></label>
-                </div>
-                <div class="field" role="group" aria-labelledby="accommodation-status-label">
-                  <span id="accommodation-status-label">Alojamiento (contrato / durante vacaciones)</span>
-                  <div class="choice-row">
-                    <label class="choice"><input type="radio" name="accommodation-status" value="not-included" required><span class="choice-indicator"></span><span>No incluido</span></label>
-                    <label class="choice"><input type="radio" name="accommodation-status" value="included-provided" required><span class="choice-indicator"></span><span>Incluido y proporcionado durante vacaciones</span></label>
-                    <label class="choice"><input type="radio" name="accommodation-status" value="included-not-provided" required><span class="choice-indicator"></span><span>Incluido y no proporcionado durante vacaciones</span></label>
-                  </div>
-                </div>
-                <div class="field" role="group" aria-labelledby="meals-status-label">
-                  <span id="meals-status-label">Comida (contrato / durante vacaciones)</span>
-                  <div class="choice-row">
-                    <label class="choice"><input type="radio" name="meals-status" value="not-included" required><span class="choice-indicator"></span><span>No incluido</span></label>
-                    <label class="choice"><input type="radio" name="meals-status" value="included-provided" required><span class="choice-indicator"></span><span>Incluido y proporcionado durante vacaciones</span></label>
-                    <label class="choice"><input type="radio" name="meals-status" value="included-not-provided" required><span class="choice-indicator"></span><span>Incluido y no proporcionado durante vacaciones</span></label>
-                  </div>
-                </div>
-              </div>
-            </fieldset>
-            <label class="field" for="rest-days"><span>Días de descanso semanal laborados</span><input id="rest-days" name="rest-days" type="number" min="0" step="1" inputmode="numeric"></label>
-          </fieldset>
-          <label class="no-extra-choice"><input id="no-extras" name="no-extras" type="checkbox"><span class="checkbox-box" aria-hidden="true"></span><span>No aplica</span><small>Excluir horas y días especiales</small></label>
+
+
+          <div class="fields-grid">
+
+
+            <label
+              class="field field-wide"
+              for="salary"
+            >
+
+              <span>
+                Ingreso mensual
+                <small>USD</small>
+              </span>
+
+              <span class="input-wrap">
+
+                <span class="currency-prefix">$</span>
+
+                <input
+                  id="salary"
+                  name="salary"
+                  type="number"
+                  min="0.01"
+                  step="0.01"
+                  required
+                  inputmode="decimal"
+                >
+
+              </span>
+
+            </label>
+
+
+            <label
+              class="field"
+              for="employment-start"
+            >
+
+              <span>
+                Fecha de inicio de labores
+              </span>
+
+              <input
+                id="employment-start"
+                name="employment-start"
+                type="date"
+                required
+              >
+
+            </label>
+
+
+            <label
+              class="field"
+              for="employment-end"
+            >
+
+              <span>
+                Fecha de finalización
+                <small>Despido o renuncia</small>
+              </span>
+
+              <input
+                id="employment-end"
+                name="employment-end"
+                type="date"
+                required
+              >
+
+            </label>
+
+
+            <label
+              class="field"
+              for="years"
+            >
+
+              <span>
+                Años laborados
+              </span>
+
+              <input
+                id="years"
+                name="years"
+                type="number"
+                min="0"
+                max="80"
+                step="1"
+                required
+                inputmode="numeric"
+                readonly
+              >
+
+            </label>
+
+
+            <label
+              class="field"
+              for="months"
+            >
+
+              <span>
+                Meses laborados
+              </span>
+
+              <input
+                id="months"
+                name="months"
+                type="number"
+                min="0"
+                max="11"
+                step="1"
+                required
+                inputmode="numeric"
+                readonly
+              >
+
+            </label>
+
+
+            <label
+              class="field"
+              for="extra-days"
+            >
+
+              <span>
+                Días adicionales
+              </span>
+
+              <input
+                id="extra-days"
+                name="extra-days"
+                type="number"
+                min="0"
+                max="29"
+                step="1"
+                inputmode="numeric"
+                readonly
+              >
+
+            </label>
+
+
+            <label
+              class="field"
+              for="minimum-wage"
+            >
+
+              <span>
+                Salario mínimo mensual
+                <small>USD</small>
+              </span>
+
+              <span class="input-wrap">
+
+                <span class="currency-prefix">$</span>
+
+                <input
+                  id="minimum-wage"
+                  name="minimum-wage"
+                  type="number"
+                  min="0.01"
+                  step="0.01"
+                  required
+                  inputmode="decimal"
+                >
+
+              </span>
+
+            </label>
+
+
+            <label
+              id="aguinaldo-field"
+              class="field field-wide"
+              for="aguinaldo"
+            >
+
+              <span>
+                Aguinaldo
+                <small>
+                  proporcional si el despido ocurre antes del 1 de octubre
+                </small>
+              </span>
+
+              <input
+                id="aguinaldo"
+                name="aguinaldo"
+                type="text"
+                value="$0.00"
+                readonly
+              >
+
+            </label>
+
+          </div>
+
+
+          <p class="field-note">
+            Confirma el salario mínimo mensual aplicable antes de calcular.
+          </p>
+
         </section>
+
+
+
+        <!-- =====================================================
+             03 · JORNADAS Y DÍAS ESPECIALES
+        ====================================================== -->
+
+        <section
+          id="special-days-section"
+          class="form-section"
+          aria-labelledby="extras-title"
+        >
+
+          <div class="section-heading">
+
+            <span class="section-number">03</span>
+
+            <div>
+
+              <h2 id="extras-title">
+                Jornadas y días especiales
+              </h2>
+
+              <p>
+                Acumulados pendientes de pago del período.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <p
+            id="extras-locked-note"
+            class="locked-note"
+            role="status"
+            hidden
+          >
+            Bloqueado: no se cumplen las condiciones indicadas para la renuncia.
+          </p>
+
+
+          <fieldset
+            id="extras-fields"
+            class="fields-grid extras-grid"
+          >
+
+
+            <label
+              class="field"
+              for="day-hours"
+            >
+
+              <span>
+                Horas extras diurnas
+                <small>6 a. m. a 7 p. m.</small>
+              </span>
+
+              <input
+                id="day-hours"
+                name="day-hours"
+                type="number"
+                min="0"
+                step="0.25"
+                inputmode="decimal"
+              >
+
+            </label>
+
+
+            <label
+              class="field"
+              for="night-hours"
+            >
+
+              <span>
+                Horas extras nocturnas
+                <small>7 p. m. a 6 a. m.</small>
+              </span>
+
+              <input
+                id="night-hours"
+                name="night-hours"
+                type="number"
+                min="0"
+                step="0.25"
+                inputmode="decimal"
+              >
+
+            </label>
+
+
+            <div
+              class="field field-wide holiday-calendar-field"
+              role="group"
+              aria-labelledby="worked-holidays-label"
+            >
+
+              <span id="worked-holidays-label">
+                ¿Laboraste días de asueto?
+              </span>
+
+
+              <div class="choice-row binary-choice-row">
+
+                <label class="choice">
+
+                  <input
+                    type="radio"
+                    name="worked-holidays"
+                    value="yes"
+                    required
+                  >
+
+                  <span class="choice-indicator"></span>
+
+                  <span>Sí</span>
+
+                </label>
+
+
+                <label class="choice">
+
+                  <input
+                    type="radio"
+                    name="worked-holidays"
+                    value="no"
+                    required
+                  >
+
+                  <span class="choice-indicator"></span>
+
+                  <span>No</span>
+
+                </label>
+
+              </div>
+
+
+              <div
+                id="holiday-list-container"
+                class="holiday-list-container"
+                hidden
+              >
+
+                <p class="holiday-list-note">
+                  Selecciona los asuetos nacionales que trabajaste durante el período indicado.
+                </p>
+
+                <div
+                  id="holiday-list"
+                  class="holiday-list"
+                  role="group"
+                  aria-label="Lista de días de asueto"
+                ></div>
+
+                <p
+                  id="holiday-list-empty"
+                  class="holiday-list-empty"
+                  hidden
+                >
+                  Indica las fechas de inicio y finalización de labores para mostrar los asuetos del período.
+                </p>
+
+                <p
+                  id="holiday-selection-count"
+                  class="holiday-selection-count"
+                  role="status"
+                  aria-live="polite"
+                >
+                  0 días seleccionados
+                </p>
+
+              </div>
+
+
+              <input
+                id="holiday-days"
+                name="holiday-days"
+                type="hidden"
+                value="0"
+              >
+
+            </div>
+
+
+            <div
+              class="field field-wide vacation-payment-question"
+              role="group"
+              aria-labelledby="vacation-paid-label"
+            >
+
+              <span id="vacation-paid-label">
+                ¿Tus vacaciones ya fueron pagadas?
+              </span>
+
+
+              <div class="choice-row binary-choice-row">
+
+                <label class="choice">
+
+                  <input
+                    type="radio"
+                    name="vacation-paid"
+                    value="yes"
+                    required
+                  >
+
+                  <span class="choice-indicator"></span>
+
+                  <span>Sí</span>
+
+                </label>
+
+
+                <label class="choice">
+
+                  <input
+                    type="radio"
+                    name="vacation-paid"
+                    value="no"
+                    required
+                  >
+
+                  <span class="choice-indicator"></span>
+
+                  <span>No</span>
+
+                </label>
+
+              </div>
+
+            </div>
+
+
+            <fieldset
+              id="vacation-details"
+              class="vacation-details field-wide"
+              hidden
+            >
+
+              <legend>
+                Datos de la última jornada vacacional
+              </legend>
+
+
+              <div class="fields-grid vacation-fields">
+
+
+                <div class="field field-wide">
+
+                  <span>
+                    ¿Cuándo inició su última jornada vacacional?
+                  </span>
+
+                  <input
+                    id="last-vacation-start"
+                    name="last-vacation-start"
+                    type="date"
+                    required
+                  >
+
+                  <small
+                    id="vacation-rest-day"
+                    class="vacation-rest-day"
+                    role="status"
+                    aria-live="polite"
+                  >
+                    Selecciona la fecha de inicio para identificar el séptimo día de descanso.
+                  </small>
+
+
+                  <label class="vacation-never-choice">
+
+                    <input
+                      id="no-previous-vacation"
+                      name="no-previous-vacation"
+                      type="checkbox"
+                    >
+
+                    <span>
+                      No había tenido vacaciones anteriores
+                    </span>
+
+                  </label>
+
+                </div>
+
+
+                <div
+                  class="field"
+                  role="group"
+                  aria-labelledby="accommodation-status-label"
+                >
+
+                  <span id="accommodation-status-label">
+                    Alojamiento (contrato / durante vacaciones)
+                  </span>
+
+
+                  <div class="choice-row">
+
+                    <label class="choice">
+
+                      <input
+                        type="radio"
+                        name="accommodation-status"
+                        value="not-included"
+                        required
+                      >
+
+                      <span class="choice-indicator"></span>
+
+                      <span>
+                        No incluido
+                      </span>
+
+                    </label>
+
+
+                    <label class="choice">
+
+                      <input
+                        type="radio"
+                        name="accommodation-status"
+                        value="included-provided"
+                        required
+                      >
+
+                      <span class="choice-indicator"></span>
+
+                      <span>
+                        Incluido y proporcionado durante vacaciones
+                      </span>
+
+                    </label>
+
+
+                    <label class="choice">
+
+                      <input
+                        type="radio"
+                        name="accommodation-status"
+                        value="included-not-provided"
+                        required
+                      >
+
+                      <span class="choice-indicator"></span>
+
+                      <span>
+                        Incluido y no proporcionado durante vacaciones
+                      </span>
+
+                    </label>
+
+                  </div>
+
+                </div>
+
+
+                <div
+                  class="field"
+                  role="group"
+                  aria-labelledby="meals-status-label"
+                >
+
+                  <span id="meals-status-label">
+                    Comida (contrato / durante vacaciones)
+                  </span>
+
+
+                  <div class="choice-row">
+
+                    <label class="choice">
+
+                      <input
+                        type="radio"
+                        name="meals-status"
+                        value="not-included"
+                        required
+                      >
+
+                      <span class="choice-indicator"></span>
+
+                      <span>
+                        No incluido
+                      </span>
+
+                    </label>
+
+
+                    <label class="choice">
+
+                      <input
+                        type="radio"
+                        name="meals-status"
+                        value="included-provided"
+                        required
+                      >
+
+                      <span class="choice-indicator"></span>
+
+                      <span>
+                        Incluido y proporcionado durante vacaciones
+                      </span>
+
+                    </label>
+
+
+                    <label class="choice">
+
+                      <input
+                        type="radio"
+                        name="meals-status"
+                        value="included-not-provided"
+                        required
+                      >
+
+                      <span class="choice-indicator"></span>
+
+                      <span>
+                        Incluido y no proporcionado durante vacaciones
+                      </span>
+
+                    </label>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </fieldset>
+
+
+            <label
+              class="field"
+              for="rest-days"
+            >
+
+              <span>
+                Días de descanso semanal laborados
+              </span>
+
+              <input
+                id="rest-days"
+                name="rest-days"
+                type="number"
+                min="0"
+                step="1"
+                inputmode="numeric"
+              >
+
+            </label>
+
+          </fieldset>
+
+
+          <label class="no-extra-choice">
+
+            <input
+              id="no-extras"
+              name="no-extras"
+              type="checkbox"
+            >
+
+            <span
+              class="checkbox-box"
+              aria-hidden="true"
+            ></span>
+
+            <span>No aplica</span>
+
+            <small>
+              Excluir horas y días especiales
+            </small>
+
+          </label>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             BOTÓN DE CÁLCULO
+        ====================================================== -->
 
         <div class="form-actions">
-          <p id="form-error" class="form-error" role="alert" aria-live="polite"></p>
-          <button class="calculate-button" type="submit">Calcular liquidación <span aria-hidden="true">↗</span></button>
+
+          <p
+            id="form-error"
+            class="form-error"
+            role="alert"
+            aria-live="polite"
+          ></p>
+
+          <button
+            class="calculate-button"
+            type="submit"
+          >
+            Calcular liquidación
+            <span aria-hidden="true">↗</span>
+          </button>
+
         </div>
+
       </form>
 
-      <section class="results" aria-labelledby="results-title" aria-live="polite">
-        <p id="print-worker-name" class="print-worker-name"></p>
+
+
+      <!-- =======================================================
+           RESULTADOS
+      ======================================================== -->
+
+      <section
+        class="results"
+        aria-labelledby="results-title"
+        aria-live="polite"
+      >
+
+        <p
+          id="print-worker-name"
+          class="print-worker-name"
+        ></p>
+
+
         <div class="results-heading">
-          <div><p class="eyebrow">DESGLOSE ESTIMADO</p><h2 id="results-title">Resultado</h2></div>
-          <span id="result-status" class="result-status">LISTO PARA CALCULAR</span>
+
+          <div>
+
+            <p class="eyebrow">
+              DESGLOSE ESTIMADO
+            </p>
+
+            <h2 id="results-title">
+              Resultado
+            </h2>
+
+          </div>
+
+
+          <span
+            id="result-status"
+            class="result-status"
+          >
+            LISTO PARA CALCULAR
+          </span>
+
         </div>
-        <div id="result-list" class="result-list">
-          
-          <div class="result-row"><span>Horas extras diurnas</span><strong data-result="dayOvertime">$0.00</strong></div>
-          <div class="result-row"><span>Horas extras nocturnas</span><strong data-result="nightOvertime">$0.00</strong></div>
-          <div class="result-row"><span>Indemnización neta por despido injustificado</span><strong data-result="dismissalIndemnity">$0.00</strong></div>
-          <div class="result-row deduction-row"><span>AFP descontada (detalle incluido arriba)</span><strong data-result="afpDeduction">$0.00</strong></div>
-          <div class="result-row deduction-row"><span>ISSS descontado (detalle incluido arriba)</span><strong data-result="isssDeduction">$0.00</strong></div>
-          <div class="result-row"><span>Aguinaldo proporcional</span><strong data-result="aguinaldo">$0.00</strong></div>
-          <div class="result-row"><span>Vacaciones proporcionales</span><strong data-result="vacationProportional">$0.00</strong></div>
-          <div class="result-row"><span>Días de asueto laborados</span><strong data-result="holiday">$0.00</strong></div>
-          <div class="result-row"><span>Días de descanso semanal</span><strong data-result="rest">$0.00</strong></div>
+
+
+        <div
+          id="result-list"
+          class="result-list"
+        >
+
+          <div class="result-row">
+
+            <span>
+              Horas extras diurnas
+            </span>
+
+            <strong data-result="dayOvertime">
+              $0.00
+            </strong>
+
+          </div>
+
+
+          <div class="result-row">
+
+            <span>
+              Horas extras nocturnas
+            </span>
+
+            <strong data-result="nightOvertime">
+              $0.00
+            </strong>
+
+          </div>
+
+
+          <div class="result-row">
+
+            <span>
+              Indemnización neta por despido injustificado
+            </span>
+
+            <strong data-result="dismissalIndemnity">
+              $0.00
+            </strong>
+
+          </div>
+
+
+          <div class="result-row deduction-row">
+
+            <span>
+              AFP descontada (detalle incluido arriba)
+            </span>
+
+            <strong data-result="afpDeduction">
+              $0.00
+            </strong>
+
+          </div>
+
+
+          <div class="result-row deduction-row">
+
+            <span>
+              ISSS descontado (detalle incluido arriba)
+            </span>
+
+            <strong data-result="isssDeduction">
+              $0.00
+            </strong>
+
+          </div>
+
+
+          <div class="result-row">
+
+            <span>
+              Aguinaldo proporcional
+            </span>
+
+            <strong data-result="aguinaldo">
+              $0.00
+            </strong>
+
+          </div>
+
+
+          <div class="result-row">
+
+            <span>
+              Vacaciones proporcionales
+            </span>
+
+            <strong data-result="vacationProportional">
+              $0.00
+            </strong>
+
+          </div>
+
+
+          <div class="result-row">
+
+            <span>
+              Días de asueto laborados
+            </span>
+
+            <strong data-result="holiday">
+              $0.00
+            </strong>
+
+          </div>
+
+
+          <div class="result-row">
+
+            <span>
+              Días de descanso semanal
+            </span>
+
+            <strong data-result="rest">
+              $0.00
+            </strong>
+
+          </div>
+
         </div>
-        <div class="total-row"><span>TOTAL BRUTO ESTIMADO</span><strong data-result="total">$0.00</strong></div>
-        <div id="calculation-note" class="calculation-note">Completa los datos y calcula para ver el detalle de los supuestos.</div>
-        <button id="print-button" class="print-button" type="button">Imprimir resultado <span aria-hidden="true">↗</span></button>
+
+
+        <!-- =====================================================
+             TOTAL
+        ====================================================== -->
+
+        <div class="total-row">
+
+          <span>
+            TOTAL BRUTO ESTIMADO
+          </span>
+
+          <strong data-result="total">
+            $0.00
+          </strong>
+
+        </div>
+
+
+        <!-- =====================================================
+             BASE LEGAL
+             OCULTA HASTA QUE SE CALCULE LA LIQUIDACIÓN
+        ====================================================== -->
+
+        <section
+           id="legal-base"
+           class="legal-base"
+           hidden
+           aria-labelledby="legal-base-title"
+        >
+
+  <h3 id="legal-base-title">
+    Base legal aplicada
+  </h3>
+
+  <div class="legal-messages">
+
+    <p class="legal-message">
+      <strong>Vacaciones proporcionales:</strong>
+      Arts. 177 y 187 del Código de Trabajo.
+    </p>
+
+    <p class="legal-message">
+      <strong>Aguinaldo proporcional:</strong>
+      Arts. 196–198 del Código de Trabajo.
+    </p>
+
+    <p
+      id="legal-dismissal-message"
+      class="legal-message"
+    >
+      <strong>Indemnización por despido injustificado:</strong>
+      Art. 58 del Código de Trabajo.
+    </p>
+
+    <p
+      id="legal-resignation-message"
+      class="legal-message"
+      hidden
+    >
+      <strong>Renuncia voluntaria:</strong>
+      Arts. 2, 5, 8 y 9 de la Ley Reguladora de la Prestación Económica por Renuncia Voluntaria.
+    </p>
+
+    <p class="legal-message">
+      <strong>Horas extras diurnas:</strong>
+      Art. 169 del Código de Trabajo.
+    </p>
+
+    <p class="legal-message">
+      <strong>Horas extras nocturnas:</strong>
+      Arts. 168 y 169 del Código de Trabajo.
+    </p>
+
+    <p class="legal-message">
+      <strong>Días de asueto laborados:</strong>
+      Art. 192 del Código de Trabajo.
+    </p>
+
+    <p class="legal-message">
+      <strong>Descanso semanal laborado:</strong>
+      Arts. 175 y 176 del Código de Trabajo.
+    </p>
+
+  </div>
+
+  <p class="legal-disclaimer">
+    Base legal presentada con fines informativos y académicos.
+  </p>
+
+</section>
+
+
+        <!-- =====================================================
+             NOTA DEL CÁLCULO
+        ====================================================== -->
+
+        <div
+          id="calculation-note"
+          class="calculation-note"
+        >
+          Completa los datos y calcula para ver el detalle de los supuestos.
+        </div>
+
+
+        <!-- =====================================================
+             IMPRESIÓN
+        ====================================================== -->
+
+        <button
+          id="print-button"
+          class="print-button"
+          type="button"
+        >
+          Imprimir resultado
+          <span aria-hidden="true">↗</span>
+        </button>
+
       </section>
+
     </div>
+
   </main>
 
-  <footer class="site-footer"><span>EL SALVADOR · CÓDIGO DE TRABAJO</span><span>Estimación informativa, no sustituye asesoría profesional.</span></footer>
+
+  <footer class="site-footer">
+
+    <span>
+      EL SALVADOR · CÓDIGO DE TRABAJO
+    </span>
+
+    <span>
+      Estimación informativa, no sustituye asesoría profesional.
+    </span>
+
+  </footer>
+
 </body>
+
 </html>

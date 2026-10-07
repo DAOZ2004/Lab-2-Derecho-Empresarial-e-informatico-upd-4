@@ -12,6 +12,9 @@ const resignationDetails=document.querySelector("#resignation-details");
 const resignationNotice=document.querySelector("#resignation-notice");
 const statusLabel=document.querySelector("#result-status");
 const calculationNote=document.querySelector("#calculation-note");
+const legalBase=document.querySelector("#legal-base");
+const legalDismissalMessage=document.querySelector("#legal-dismissal-message");
+const legalResignationMessage=document.querySelector("#legal-resignation-message");
 const employmentStart=document.querySelector("#employment-start");
 const employmentEnd=document.querySelector("#employment-end");
 const holidayDaysInput=document.querySelector("#holiday-days");
@@ -921,6 +924,23 @@ function calculate(){
   }
 
   statusLabel.textContent="CÁLCULO ACTUALIZADO";
+
+  if(legalBase){
+  legalBase.hidden=false;
+  }
+
+  const currentCause =
+  form.querySelector('input[name="cause"]:checked')?.value;
+
+ if(legalDismissalMessage){
+  legalDismissalMessage.hidden =
+    currentCause !== "dismissal";
+  }
+
+  if(legalResignationMessage){
+  legalResignationMessage.hidden =
+    currentCause !== "resignation";
+  }
 
 
   const causeText=
