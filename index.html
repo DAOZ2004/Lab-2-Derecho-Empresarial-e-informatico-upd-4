@@ -105,6 +105,22 @@
 
             </label>
 
+            <!-- NUEVO CAMPO: EMPRESA / RAZÓN SOCIAL -->
+
+            <label class="field field-wide" for="employer-name">
+
+               <span>Nombre de la empresa o razón social del patrono</span>
+
+               <input
+                   id="employer-name"
+                   name="employer-name"
+                   type="text"
+                   maxlength="150"
+                  autocomplete="organization"
+                  placeholder="Ej. Empresa ABC, S.A. de C.V."
+                >
+              </label>
+
 
             <div
               class="field field-wide"
@@ -1172,6 +1188,10 @@
         <p
           id="print-worker-name"
           class="print-worker-name"
+        ></p>
+        <p 
+           id="print-employer-name" 
+           class="print-employer-name"
         ></p>
 
 

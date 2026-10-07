@@ -1307,40 +1307,75 @@ if(printButton){
 }
 
 
-window.addEventListener("beforeprint",()=>{
-  const workerNameElement=
+window.addEventListener("beforeprint", () => {
+
+  const workerNameElement =
     document.querySelector("#worker-name");
 
-  const anonymousInput=
+  const employerNameElement =
+    document.querySelector("#employer-name");
+
+  const anonymousInput =
     form.querySelector(
       'input[name="anonymous-data"]:checked'
     );
 
-  const printWorkerName=
+  const printWorkerName =
     document.querySelector("#print-worker-name");
 
-  if(
-    !workerNameElement||
-    !anonymousInput||
-    !printWorkerName
-  )return;
+  const printEmployerName =
+    document.querySelector("#print-employer-name");
 
-  const workerName=
+  if (
+    !workerNameElement ||
+    !employerNameElement ||
+    !anonymousInput
+  ) return;
+
+  const workerName =
     workerNameElement.value.trim();
 
-  const showWorkerName=
-    anonymousInput.value==="no";
+  const employerName =
+    employerNameElement.value.trim();
 
-  printWorkerName.textContent=
-    workerName
-      ?(
-        showWorkerName
-          ?`Trabajador: ${workerName}`
-          :"Trabajador: ████████████"
-      )
-      :"";
+  const showPersonalData =
+    anonymousInput.value === "no";
+
+
+  /* =========================
+     NOMBRE DEL TRABAJADOR
+     ========================= */
+
+  if (printWorkerName) {
+
+    printWorkerName.textContent =
+      workerName
+        ? (
+            showPersonalData
+              ? `Trabajador: ${workerName}`
+              : "Trabajador: ████████████"
+          )
+        : "";
+  }
+
+
+  /* =========================
+     NOMBRE DE LA EMPRESA
+     ========================= */
+
+  if (printEmployerName) {
+
+    printEmployerName.textContent =
+      employerName
+        ? (
+            showPersonalData
+              ? `Empresa / razón social: ${employerName}`
+              : "Empresa / razón social: ████████████"
+          )
+        : "";
+  }
+
 });
-
 
 /* =========================================================
    INICIALIZACIÓN
