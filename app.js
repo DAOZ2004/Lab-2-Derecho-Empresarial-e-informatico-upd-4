@@ -4,6 +4,10 @@ const noExtras = document.querySelector("#no-extras");
 const extrasGrid = document.querySelector(".extras-grid");
 const extrasFields = document.querySelector("#extras-fields");
 const extrasLockedNote = document.querySelector("#extras-locked-note");
+const dismissalIndemnityPanel = document.querySelector("#dismissal-indemnity-panel");
+const dismissalIndemnityInput = document.querySelector("#dismissal-indemnity");
+const aguinaldoInput = document.querySelector("#aguinaldo");
+const aguinaldoField = document.querySelector("#aguinaldo-field");
 const resignationDetails = document.querySelector("#resignation-details");
 const resignationNotice = document.querySelector("#resignation-notice");
 const statusLabel = document.querySelector("#result-status");
@@ -11,17 +15,18 @@ const calculationNote = document.querySelector("#calculation-note");
 const employmentStart = document.querySelector("#employment-start");
 const employmentEnd = document.querySelector("#employment-end");
 const holidayDaysInput = document.querySelector("#holiday-days");
-const holidayCalendarMonthLabel = document.querySelector("#holiday-calendar-month");
-const holidayCalendarDays = document.querySelector("#holiday-calendar-days");
+const holidayListContainer = document.querySelector("#holiday-list-container");
+const holidayList = document.querySelector("#holiday-list");
+const holidayListEmpty = document.querySelector("#holiday-list-empty");
 const holidaySelectionCount = document.querySelector("#holiday-selection-count");
-const holidayPreviousMonth = document.querySelector("#holiday-previous-month");
-const holidayNextMonth = document.querySelector("#holiday-next-month");
+const vacationDetails = document.querySelector("#vacation-details");
+const lastVacationStart = document.querySelector("#last-vacation-start");
+const noPreviousVacation = document.querySelector("#no-previous-vacation");
+const vacationRestDay = document.querySelector("#vacation-rest-day");
 const selectedHolidayDates = new Set();
 const numberValue = (name) => Number(new FormData(form).get(name) || 0);
 const money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
-const holidayMonthFormatter = new Intl.DateTimeFormat("es-SV", { month: "long", year: "numeric" });
 const holidayDateFormatter = new Intl.DateTimeFormat("es-SV", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
-let holidayCalendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 
 function localDateValue(date = new Date()) {
   const year = date.getFullYear();
@@ -37,65 +42,107 @@ function latestHolidayDateValue() {
   return employmentEnd.value && employmentEnd.value < today ? employmentEnd.value : today;
 }
 
-function isHolidayDateAllowed(dateValue) {
-  return dateValue <= latestHolidayDateValue() && (!employmentStart.value || dateValue >= employmentStart.value);
+function easterSunday(year) {
+  const a = year % 19;
+  const b = Math.floor(year / 100);
+  const c = year % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const month = Math.floor((h + l - 7 * m + 114) / 31);
+  const day = ((h + l - 7 * m + 114) % 31) + 1;
+  return new Date(year, month - 1, day);
 }
 
-function renderHolidayCalendar() {
-  const year = holidayCalendarMonth.getFullYear();
-  const month = holidayCalendarMonth.getMonth();
-  const visibleMonthValue = `${year}-${String(month + 1).padStart(2, "0")}`;
-  const latestMonthValue = latestHolidayDateValue().slice(0, 7);
-  const firstEmploymentMonth = employmentStart.value ? employmentStart.value.slice(0, 7) : "";
-  holidayCalendarMonthLabel.textContent = holidayMonthFormatter.format(holidayCalendarMonth);
-  holidayPreviousMonth.disabled = Boolean(firstEmploymentMonth && visibleMonthValue <= firstEmploymentMonth);
-  holidayNextMonth.disabled = visibleMonthValue >= latestMonthValue;
-  holidayCalendarDays.replaceChildren();
+function holidaysForYear(year) {
+  const easter = easterSunday(year);
+  const holidays = [
+    ["Año Nuevo", new Date(year, 0, 1)],
+    ["Jueves Santo", new Date(year, easter.getMonth(), easter.getDate() - 3)],
+    ["Viernes Santo", new Date(year, easter.getMonth(), easter.getDate() - 2)],
+    ["Sábado Santo", new Date(year, easter.getMonth(), easter.getDate() - 1)],
+    ["Día del Trabajo", new Date(year, 4, 1)],
+    ["Día de la Madre", new Date(year, 4, 10)],
+    ["Día del Padre", new Date(year, 5, 17)],
+    ["Día del Divino Salvador del Mundo", new Date(year, 7, 6)],
+    ["Día de la Independencia", new Date(year, 8, 15)],
+    ["Día de los Difuntos", new Date(year, 10, 2)],
+    ["Asueto del 21 de noviembre", new Date(year, 10, 21)],
+    ["Navidad", new Date(year, 11, 25)]
+  ];
+  return holidays.map(([name, date]) => ({ name, dateValue: localDateValue(date) }));
+}
 
-  const firstWeekday = (new Date(year, month, 1).getDay() + 6) % 7;
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const today = localDateValue();
+function renderHolidayList() {
+  const startDate = employmentStart.value;
+  const endDate = latestHolidayDateValue();
+  holidayList.replaceChildren();
+  if (!startDate || !endDate || startDate > endDate) {
+    holidayListEmpty.textContent = "Indica las fechas de inicio y finalización de labores para mostrar los asuetos del período.";
+    holidayListEmpty.hidden = false;
+    return;
+  }
 
-  for (let cell = 0; cell < 42; cell += 1) {
-    const day = cell - firstWeekday + 1;
-    if (day < 1 || day > daysInMonth) {
-      const emptyCell = document.createElement("span");
-      emptyCell.className = "holiday-day-empty";
-      emptyCell.setAttribute("aria-hidden", "true");
-      holidayCalendarDays.append(emptyCell);
-      continue;
-    }
+  const holidays = [];
+  for (let year = Number(startDate.slice(0, 4)); year <= Number(endDate.slice(0, 4)); year += 1) {
+    holidays.push(...holidaysForYear(year).filter(({ dateValue }) => dateValue >= startDate && dateValue <= endDate));
+  }
+  holidays.sort((a, b) => a.dateValue.localeCompare(b.dateValue));
+  holidayListEmpty.hidden = holidays.length > 0;
+  if (holidays.length === 0) {
+    holidayListEmpty.textContent = "No hay días de asueto nacionales dentro del período indicado.";
+    return;
+  }
 
-    const date = new Date(year, month, day);
-    const dateValue = localDateValue(date);
-    const isSelected = selectedHolidayDates.has(dateValue);
-    const dayButton = document.createElement("button");
-    dayButton.type = "button";
-    dayButton.className = "holiday-day";
-    dayButton.textContent = String(day);
-    dayButton.disabled = !isHolidayDateAllowed(dateValue);
-    dayButton.classList.toggle("is-today", dateValue === today);
-    dayButton.classList.toggle("is-selected", isSelected);
-    dayButton.setAttribute("aria-pressed", String(isSelected));
-    dayButton.setAttribute("aria-label", `${holidayDateFormatter.format(date)}${isSelected ? ", seleccionado" : ""}`);
-    dayButton.addEventListener("click", () => {
-      if (selectedHolidayDates.has(dateValue)) selectedHolidayDates.delete(dateValue);
-      else selectedHolidayDates.add(dateValue);
+  for (const { name, dateValue } of holidays) {
+    const date = new Date(`${dateValue}T00:00:00`);
+    const label = document.createElement("label");
+    label.className = "holiday-option";
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.name = "holiday-date";
+    checkbox.value = dateValue;
+    checkbox.checked = selectedHolidayDates.has(dateValue);
+    const text = document.createElement("span");
+    text.textContent = `${name} — ${holidayDateFormatter.format(date)}`;
+    checkbox.addEventListener("change", () => {
+      if (checkbox.checked) selectedHolidayDates.add(dateValue);
+      else selectedHolidayDates.delete(dateValue);
       updateHolidaySelection();
       if (statusLabel.textContent === "CÁLCULO ACTUALIZADO" && validateForm()) calculate();
     });
-    holidayCalendarDays.append(dayButton);
+    label.append(checkbox, text);
+    holidayList.append(label);
   }
 }
 
 function updateHolidaySelection() {
+  const startDate = employmentStart.value;
+  const endDate = latestHolidayDateValue();
   for (const dateValue of selectedHolidayDates) {
-    if (!isHolidayDateAllowed(dateValue)) selectedHolidayDates.delete(dateValue);
+    if (!startDate || !endDate || dateValue < startDate || dateValue > endDate) selectedHolidayDates.delete(dateValue);
   }
   const count = selectedHolidayDates.size;
   holidayDaysInput.value = String(count);
   holidaySelectionCount.textContent = `${count} ${count === 1 ? "día seleccionado" : "días seleccionados"}`;
-  renderHolidayCalendar();
+  renderHolidayList();
+}
+
+function updateWorkedHolidayFields() {
+  const workedHolidays = form.querySelector('input[name="worked-holidays"]:checked')?.value;
+  holidayListContainer.hidden = workedHolidays !== "yes";
+  if (workedHolidays !== "yes") {
+    selectedHolidayDates.clear();
+    holidayDaysInput.value = "0";
+    holidaySelectionCount.textContent = "0 días seleccionados";
+  }
+  renderHolidayList();
 }
 
 function updateEmploymentDateLimits() {
@@ -105,6 +152,25 @@ function updateEmploymentDateLimits() {
   employmentEnd.max = isResignation ? "" : today;
   employmentEnd.min = employmentStart.value || "";
   employmentStart.min = "";
+  lastVacationStart.min = employmentStart.value || "";
+  lastVacationStart.max = isResignation ? (employmentEnd.value || today) : [employmentEnd.value, today].filter(Boolean).sort()[0] || today;
+}
+
+function updateVacationRestDay() {
+  lastVacationStart.disabled = noPreviousVacation.checked;
+  lastVacationStart.required = !noPreviousVacation.checked;
+  if (noPreviousVacation.checked) {
+    vacationRestDay.textContent = "No se registra una jornada anterior; para el cálculo proporcional se usará la fecha de ingreso.";
+    return;
+  }
+  if (!lastVacationStart.value) {
+    vacationRestDay.textContent = "Selecciona la fecha de inicio para identificar el séptimo día de descanso.";
+    return;
+  }
+
+  const [year, month, day] = lastVacationStart.value.split("-").map(Number);
+  const seventhDay = new Date(year, month - 1, day + 6);
+  vacationRestDay.textContent = `Tomando el inicio de la jornada vacacional como día 1, el séptimo día (descanso semanal) corresponde al ${holidayDateFormatter.format(seventhDay)}.`;
 }
 
 function scheduleEmploymentDateLimitRefresh() {
@@ -147,9 +213,71 @@ function countServiceDays() {
   return years * 360 + months * 30 + extraDays;
 }
 
+function dateDifferenceInDays(startDate, endDate) {
+  const [startYear, startMonth, startDay] = startDate.split("-").map(Number);
+  const [endYear, endMonth, endDay] = endDate.split("-").map(Number);
+  const startUtc = Date.UTC(startYear, startMonth - 1, startDay);
+  const endUtc = Date.UTC(endYear, endMonth - 1, endDay);
+  return (endUtc - startUtc) / 86400000;
+}
+
+function calculateAguinaldo(salary, serviceDays) {
+  const startDate = employmentStart.value;
+  const endDate = employmentEnd.value;
+  if (!startDate || !endDate || startDate > endDate) return 0;
+
+  const serviceYears = serviceDays / 360;
+  const bonusDays = serviceYears > 10 ? 21 : serviceYears >= 3 ? 19 : 15;
+  const dailySalary = salary / 30;
+  const endYear = Number(endDate.slice(0, 4));
+  const octoberFirst = `${endYear}-10-01`;
+
+  if (endDate >= octoberFirst) return dailySalary * bonusDays;
+
+  const accrualPeriodStart = `${endYear - 1}-10-01`;
+  const accrualStart = startDate > accrualPeriodStart ? startDate : accrualPeriodStart;
+  const accruedDays = dateDifferenceInDays(accrualStart, endDate) + 1;
+  const accrualPeriodDays = dateDifferenceInDays(accrualPeriodStart, octoberFirst);
+  return dailySalary * bonusDays * (accruedDays / accrualPeriodDays);
+}
+
+function calculateVacationProportional(salary) {
+  if (form.querySelector('input[name="vacation-paid"]:checked')?.value !== "no") return 0;
+
+  const startDate = employmentStart.value;
+  const endDate = employmentEnd.value;
+  const accrualStart = noPreviousVacation.checked ? startDate : lastVacationStart.value;
+  if (!accrualStart || !endDate || accrualStart > endDate) return 0;
+
+  const dailySalary = salary / 30;
+  const annualVacationPay = dailySalary * 15 * 1.3;
+  let periodStart = accrualStart;
+  let vacationPay = 0;
+
+  while (periodStart <= endDate) {
+    const [year, month, day] = periodStart.split("-").map(Number);
+    const nextYear = year + 1;
+    const daysInAnniversaryMonth = new Date(nextYear, month, 0).getDate();
+    const anniversaryDate = `${nextYear}-${String(month).padStart(2, "0")}-${String(Math.min(day, daysInAnniversaryMonth)).padStart(2, "0")}`;
+    const accrualPeriodDays = dateDifferenceInDays(periodStart, anniversaryDate);
+    const accruedDays = endDate < anniversaryDate
+      ? dateDifferenceInDays(periodStart, endDate) + 1
+      : accrualPeriodDays;
+    vacationPay += annualVacationPay * (accruedDays / accrualPeriodDays);
+    if (endDate < anniversaryDate) break;
+    periodStart = anniversaryDate;
+  }
+
+  return vacationPay;
+}
+
 function updateResignationFields() {
   const cause = form.querySelector('input[name="cause"]:checked').value;
   const isResignation = cause === "resignation";
+  const isDismissal = cause === "dismissal";
+  dismissalIndemnityPanel.hidden = !isDismissal;
+  aguinaldoField.hidden = !isDismissal;
+  document.querySelector('[data-result="dismissalIndemnity"]').closest(".result-row").hidden = !isDismissal;
   resignationDetails.hidden = !isResignation;
   resignationDetails.disabled = !isResignation;
 
@@ -180,6 +308,22 @@ function calculate() {
   const cause = new FormData(form).get("cause");
   const resignationCompliance = new FormData(form).get("resignation-compliance");
   let indemnity = 0;
+  let afpDeduction = 0;
+  let isssDeduction = 0;
+
+  const contributionBase = salary * serviceYears;
+  afpDeduction = contributionBase * 0.0725;
+  isssDeduction = contributionBase * 0.03;
+
+  if (cause === "dismissal") {
+    const baseDismissal = contributionBase;
+    const dismissalCap = Math.max(salary, minimumWage) * 3;
+    indemnity = Math.max(0, Math.min(baseDismissal, dismissalCap) - afpDeduction - isssDeduction);
+    const formattedIndemnity = money.format(indemnity);
+    dismissalIndemnityInput.value = formattedIndemnity;
+  } else {
+    dismissalIndemnityInput.value = money.format(0);
+  }
 
   if (cause === "resignation" && resignationCompliance === "yes" && serviceYears >= 2) {
     const remainder = serviceDays % 360;
@@ -192,18 +336,25 @@ function calculate() {
   const nightHours = extrasUnavailable ? 0 : numberValue("night-hours");
   const holidayDays = extrasUnavailable ? 0 : numberValue("holiday-days");
   const restDays = extrasUnavailable ? 0 : numberValue("rest-days");
+  const aguinaldo = calculateAguinaldo(salary, serviceDays);
+  const vacationProportional = calculateVacationProportional(salary);
+  aguinaldoInput.value = money.format(aguinaldo);
   const hourlySalary = dailySalary / 8;
   const results = {
-    /*indemnity,*/
     dayOvertime: dayHours * hourlySalary * 2,
     nightOvertime: nightHours * hourlySalary * 2 * 1.25,
     holiday: holidayDays * dailySalary * 2,
-    rest: restDays * dailySalary * 1.5
+    rest: restDays * dailySalary * 1.5,
+    dismissalIndemnity: cause === "dismissal" ? indemnity : 0,
+    afpDeduction: -afpDeduction,
+    isssDeduction: -isssDeduction,
+    aguinaldo,
+    vacationProportional
   };
   for (const key of Object.keys(results)) {
     results[key] = Math.round((results[key] + Number.EPSILON) * 100) / 100;
   }
-  results.total = Object.values(results).reduce((sum, value) => sum + value, 0);
+  results.total = results.dayOvertime + results.nightOvertime + results.holiday + results.rest + results.dismissalIndemnity + results.aguinaldo + results.vacationProportional + (cause === "resignation" ? results.afpDeduction + results.isssDeduction : 0);
 
   for (const [key, amount] of Object.entries(results)) {
     document.querySelector(`[data-result="${key}"]`).textContent = money.format(amount);
@@ -214,13 +365,17 @@ function calculate() {
   Asueto: SE = SBD X 2.
   Dia de descanso normal:  SDD = SBD x 1.5.
   Hora Noctuna: HN = HD x 1.25.
-  Horas Extra: HE = H x HL x2.`;
+  Horas Extra: HE = H x HL x2.
+  ${cause === "dismissal" ? "Despido injustificado: indemnización neta = salario base × años laborados - AFP (7.25 %) - ISSS (3 %). Los descuentos se detallan aparte y no vuelven a restarse del total." : "Renuncia: AFP (7.25 %) e ISSS (3 %) se calculan sobre salario × años laborados y se restan del total."}
+  AFP: ${afpDeduction.toFixed(2)}; ISSS: ${isssDeduction.toFixed(2)}.
+  Aguinaldo: ${aguinaldo.toFixed(2)}; escala anual de 15, 19 o 21 días según antigüedad, proporcional desde el 1 de octubre anterior cuando la terminación ocurre antes del 1 de octubre.
+  Vacaciones proporcionales: ${vacationProportional.toFixed(2)}; 15 días de salario más 30 %, prorrateados desde la última jornada vacacional o desde el ingreso si no hubo vacaciones anteriores.`;
 }
 
 function validateForm() {
   updateEmploymentDateLimits();
   const cause = form.querySelector('input[name="cause"]:checked').value;
-  const requiredFields = [...form.querySelectorAll("input[required]")];
+  const requiredFields = [...form.querySelectorAll("input[required]")].filter((field) => !field.disabled && !field.closest("[hidden]") && !field.closest("[disabled]"));
   const invalid = requiredFields.find((field) => !field.checkValidity());
   const invalidEmploymentPeriod = employmentStart.value && employmentEnd.value && employmentStart.value > employmentEnd.value;
   const monthsField = form.elements.months;
@@ -269,21 +424,36 @@ form.querySelectorAll('input[name="employment-start"], input[name="employment-en
   input.addEventListener("change", () => {
     updateEmploymentDateLimits();
     updateServicePeriod();
-    const calendarDate = latestHolidayDateValue().split("-").map(Number);
-    holidayCalendarMonth = new Date(calendarDate[0], calendarDate[1] - 1, 1);
     updateHolidaySelection();
+    if (lastVacationStart.value && (lastVacationStart.value < lastVacationStart.min || lastVacationStart.value > lastVacationStart.max)) {
+      lastVacationStart.value = "";
+    }
+    updateVacationRestDay();
     if (statusLabel.textContent === "CÁLCULO ACTUALIZADO" && validateForm()) calculate();
   });
 });
 
-holidayPreviousMonth.addEventListener("click", () => {
-  holidayCalendarMonth.setMonth(holidayCalendarMonth.getMonth() - 1);
-  renderHolidayCalendar();
+lastVacationStart.addEventListener("change", updateVacationRestDay);
+
+noPreviousVacation.addEventListener("change", () => {
+updateVacationRestDay();
+if (statusLabel.textContent === "CÁLCULO ACTUALIZADO" && validateForm()) calculate();
 });
 
-holidayNextMonth.addEventListener("click", () => {
-  holidayCalendarMonth.setMonth(holidayCalendarMonth.getMonth() + 1);
-  renderHolidayCalendar();
+form.querySelectorAll('input[name="vacation-paid"]').forEach((input) => {
+  input.addEventListener("change", () => {
+    const vacationWasPaid = form.querySelector('input[name="vacation-paid"]:checked').value === "yes";
+    vacationDetails.hidden = vacationWasPaid;
+    vacationDetails.disabled = vacationWasPaid;
+    if (statusLabel.textContent === "CÁLCULO ACTUALIZADO" && validateForm()) calculate();
+  });
+});
+
+form.querySelectorAll('input[name="worked-holidays"]').forEach((input) => {
+  input.addEventListener("change", () => {
+    updateWorkedHolidayFields();
+    if (statusLabel.textContent === "CÁLCULO ACTUALIZADO" && validateForm()) calculate();
+  });
 });
 
 form.addEventListener("submit", (event) => {
@@ -299,8 +469,6 @@ form.querySelectorAll('input[name="cause"]').forEach((input) => {
   input.addEventListener("change", () => {
     updateResignationFields();
     updateEmploymentDateLimits();
-    const calendarDate = latestHolidayDateValue().split("-").map(Number);
-    holidayCalendarMonth = new Date(calendarDate[0], calendarDate[1] - 1, 1);
     updateHolidaySelection();
     if (statusLabel.textContent === "CÁLCULO ACTUALIZADO" && validateForm()) calculate();
   });
@@ -331,4 +499,6 @@ window.addEventListener("beforeprint", () => {
 updateResignationFields();
 updateEmploymentDateLimits();
 updateHolidaySelection();
+updateWorkedHolidayFields();
+updateVacationRestDay();
 scheduleEmploymentDateLimitRefresh();

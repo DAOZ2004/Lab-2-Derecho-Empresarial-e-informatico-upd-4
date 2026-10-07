@@ -14,6 +14,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 14px; line-height: 1.5; }
 button, input { font: inherit; }
 .topbar { height: 68px; padding: 0 clamp(22px, 6vw, 88px); display: flex; align-items: center; justify-content: space-between; background: var(--forest); color: #fff; }
@@ -63,26 +64,25 @@ h1 em { color: var(--forest-bright); font-style: normal; }
 .binary-choice-row { gap: 8px; }
 .binary-choice-row .choice { flex: 0 1 105px; }
 .legal-notice { grid-column: 1 / -1; margin: 0; padding: 11px 13px; border-left: 3px solid #d3654f; background: #fff3df; color: #5d5140; font-size: 11px; line-height: 1.6; }
+.dismissal-indemnity-panel { width: 100%; margin: 18px 0 0; padding: 17px 0 0; border: 0; border-top: 1px solid var(--line); }
+.dismissal-indemnity-panel legend { padding: 0 8px 0 0; color: var(--forest-bright); font-size: 11px; font-weight: 700; }
+.dismissal-fields { align-items: end; }
 .locked-note { margin: 0 0 14px 44px; color: #9a4938; font-size: 11px; font-weight: 600; }
 .extras-grid { width: 100%; min-width: 0; margin: 0 0 19px; padding: 0; border: 0; }
-.holiday-calendar { width: 100%; padding: 12px; border: 1px solid var(--line); border-radius: 3px; background: #fbfcfb; color: var(--ink); }
-.holiday-calendar-header { display: grid; grid-template-columns: 36px 1fr 36px; align-items: center; gap: 8px; margin-bottom: 12px; }
-.holiday-calendar-header h3 { margin: 0; text-align: center; color: var(--forest); font-family: var(--font-display); font-size: 13px; font-weight: 700; text-transform: capitalize; }
-.holiday-month-button { display: grid; width: 36px; height: 36px; place-items: center; border: 1px solid var(--line); border-radius: 3px; background: var(--surface); color: var(--forest); cursor: pointer; font-size: 19px; line-height: 1; }
-.holiday-month-button:hover:not(:disabled) { border-color: var(--forest-bright); background: var(--pale-green); }
-.holiday-month-button:disabled { cursor: default; opacity: .4; }
-.holiday-calendar-weekdays, .holiday-calendar-days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
-.holiday-calendar-weekdays { margin-bottom: 4px; color: var(--muted); text-align: center; font-size: 10px; font-weight: 700; }
-.holiday-calendar-weekdays span { display: grid; min-height: 24px; place-items: center; }
-.holiday-calendar-days { grid-auto-rows: 38px; }
-.holiday-day, .holiday-day-empty { display: grid; min-width: 0; min-height: 0; place-items: center; }
-.holiday-day { padding: 0; border: 1px solid transparent; border-radius: 3px; background: transparent; color: var(--ink); cursor: pointer; font-size: 12px; font-weight: 500; }
-.holiday-day:hover:not(:disabled) { border-color: #b8cfc3; background: #edf5f0; }
-.holiday-day:focus-visible, .holiday-month-button:focus-visible { outline: 3px solid rgb(27 102 86 / 22%); outline-offset: 1px; }
-.holiday-day.is-today { border-color: var(--coral); font-weight: 700; }
-.holiday-day.is-selected, .holiday-day.is-selected:hover { border-color: var(--forest); background: var(--forest); color: #fff; }
-.holiday-day:disabled { cursor: default; color: #b0bbb6; }
+.holiday-list-container { width: 100%; padding: 12px; border: 1px solid var(--line); border-radius: 3px; background: #fbfcfb; color: var(--ink); }
+.holiday-list-note, .holiday-list-empty { margin: 0 0 10px; color: var(--muted); font-size: 11px; line-height: 1.6; }
+.holiday-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.holiday-option { display: flex; min-width: 0; align-items: flex-start; gap: 9px; padding: 10px; border: 1px solid var(--line); border-radius: 3px; background: var(--surface); color: #465951; cursor: pointer; font-size: 11px; font-weight: 500; line-height: 1.5; }
+.holiday-option:has(input:checked) { border-color: var(--forest-bright); background: #f1f8f4; color: var(--forest); }
+.holiday-option input { margin: 2px 0 0; accent-color: var(--forest-bright); }
+.holiday-option input:focus-visible { outline: 3px solid rgb(27 102 86 / 22%); outline-offset: 2px; }
 .holiday-selection-count { margin: 10px 0 0; padding-top: 9px; border-top: 1px solid var(--line); color: var(--muted); font-size: 10px; font-weight: 600; }
+.vacation-details { min-width: 0; margin: 0; padding: 15px 0 0; border: 0; border-top: 1px solid var(--line); }
+.vacation-details legend { padding: 0 8px 0 0; color: var(--forest-bright); font-size: 11px; font-weight: 700; }
+.vacation-fields { align-items: start; }
+.vacation-rest-day { color: var(--muted); font-size: 10px; font-weight: 400; line-height: 1.6; }
+.vacation-never-choice { display: flex; align-items: center; gap: 8px; margin-top: 4px; color: #556762; cursor: pointer; font-size: 10px; font-weight: 500; }
+.vacation-never-choice input { accent-color: var(--forest-bright); }
 .extras-grid:disabled { opacity: .43; }
 .form-section.is-locked .section-heading { opacity: .55; }
 .extras-grid { margin-bottom: 19px; }
@@ -116,5 +116,5 @@ h1 em { color: var(--forest-bright); font-style: normal; }
 .print-worker-name { display: none; }
 .site-footer { display: flex; justify-content: space-between; gap: 20px; padding: 18px clamp(22px, 6vw, 88px); border-top: 1px solid #dce4e0; color: #76847f; font-size: 9px; font-weight: 600; letter-spacing: .08em; }
 @media (max-width: 980px) { .layout { grid-template-columns: minmax(0, 1fr); gap: 35px; padding-top: 44px; } .intro { position: static; } .intro-copy { max-width: 540px; } .intro-rule { margin-top: 22px; } .intro-foot { max-width: 480px; } }
-@media (max-width: 600px) { .topbar { height: 58px; padding: 0 18px; } .topbar-note { font-size: 8px; letter-spacing: .08em; } .layout { gap: 27px; padding: 35px 16px 42px; } h1 { font-size: 42px; } .form-section { padding: 22px 18px; } .fields-grid { gap: 14px 11px; } .field { font-size: 11px; } .field small { display: block; margin: 2px 0 0; } .choice-row { gap: 8px; } .choice { flex-basis: 100%; } .form-actions { align-items: stretch; flex-direction: column; padding: 15px 18px; } .calculate-button { width: 100%; } .results { padding: 22px 17px 19px; } .result-row { font-size: 11px; } .result-row strong { font-size: 11px; } .total-row { padding: 0 10px; } .total-row span { max-width: 130px; line-height: 1.4; } .total-row strong { font-size: 20px; } .site-footer { flex-direction: column; gap: 6px; padding: 16px 18px; } }
+@media (max-width: 600px) { .topbar { height: 58px; padding: 0 18px; } .topbar-note { font-size: 8px; letter-spacing: .08em; } .layout { gap: 27px; padding: 35px 16px 42px; } h1 { font-size: 42px; } .form-section { padding: 22px 18px; } .fields-grid { gap: 14px 11px; } .field { font-size: 11px; } .field small { display: block; margin: 2px 0 0; } .choice-row { gap: 8px; } .choice { flex-basis: 100%; } .holiday-list { grid-template-columns: 1fr; } .form-actions { align-items: stretch; flex-direction: column; padding: 15px 18px; } .calculate-button { width: 100%; } .results { padding: 22px 17px 19px; } .result-row { font-size: 11px; } .result-row strong { font-size: 11px; } .total-row { padding: 0 10px; } .total-row span { max-width: 130px; line-height: 1.4; } .total-row strong { font-size: 20px; } .site-footer { flex-direction: column; gap: 6px; padding: 16px 18px; } }
 @media print { body { background: white; } .topbar, .intro, #calculator, .site-footer, .print-button { display: none !important; } .layout { display: block; max-width: none; padding: 0; } .workspace { width: 100%; } .results { margin: 0; border: 0; background: white; } .print-worker-name:not(:empty) { display: block; margin: 0 0 12px; color: #143b35; font-size: 12px; font-weight: 700; } }
