@@ -249,8 +249,11 @@ function calculateVacationProportional(salary) {
   const accrualStart = noPreviousVacation.checked ? startDate : lastVacationStart.value;
   if (!accrualStart || !endDate || accrualStart > endDate) return 0;
 
+  const accommodationUnavailable = form.querySelector('input[name="accommodation-status"]:checked')?.value === "included-not-provided";
+  const mealsUnavailable = form.querySelector('input[name="meals-status"]:checked')?.value === "included-not-provided";
+  const additionalBenefits = Number(accommodationUnavailable) + Number(mealsUnavailable);
   const dailySalary = salary / 30;
-  const annualVacationPay = dailySalary * 15 * 1.3;
+  const annualVacationPay = dailySalary * 15 * (1.3 + additionalBenefits * 0.25);
   let periodStart = accrualStart;
   let vacationPay = 0;
 
@@ -369,7 +372,7 @@ function calculate() {
   ${cause === "dismissal" ? "Despido injustificado: indemnización neta = salario base × años laborados - AFP (7.25 %) - ISSS (3 %). Los descuentos se detallan aparte y no vuelven a restarse del total." : "Renuncia: AFP (7.25 %) e ISSS (3 %) se calculan sobre salario × años laborados y se restan del total."}
   AFP: ${afpDeduction.toFixed(2)}; ISSS: ${isssDeduction.toFixed(2)}.
   Aguinaldo: ${aguinaldo.toFixed(2)}; escala anual de 15, 19 o 21 días según antigüedad, proporcional desde el 1 de octubre anterior cuando la terminación ocurre antes del 1 de octubre.
-  Vacaciones proporcionales: ${vacationProportional.toFixed(2)}; 15 días de salario más 30 %, prorrateados desde la última jornada vacacional o desde el ingreso si no hubo vacaciones anteriores.`;
+  Vacaciones proporcionales: ${vacationProportional.toFixed(2)}; 15 días de salario más 30 %, con 25 % adicional por alojamiento o comida pactados que no se pudieron proporcionar durante las vacaciones.`;
 }
 
 function validateForm() {

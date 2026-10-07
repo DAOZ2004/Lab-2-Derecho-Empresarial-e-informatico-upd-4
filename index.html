@@ -149,18 +149,20 @@
                   <small id="vacation-rest-day" class="vacation-rest-day" role="status" aria-live="polite">Selecciona la fecha de inicio para identificar el séptimo día de descanso.</small>
                   <label class="vacation-never-choice"><input id="no-previous-vacation" name="no-previous-vacation" type="checkbox"><span>No había tenido vacaciones anteriores</span></label>
                 </div>
-                <div class="field" role="group" aria-labelledby="vacation-accommodation-label">
-                  <span id="vacation-accommodation-label">¿Tuvo alojamiento?</span>
-                  <div class="choice-row binary-choice-row">
-                    <label class="choice"><input type="radio" name="vacation-accommodation" value="yes" required><span class="choice-indicator"></span><span>Sí</span></label>
-                    <label class="choice"><input type="radio" name="vacation-accommodation" value="no" required><span class="choice-indicator"></span><span>No</span></label>
+                <div class="field" role="group" aria-labelledby="accommodation-status-label">
+                  <span id="accommodation-status-label">Alojamiento (contrato / durante vacaciones)</span>
+                  <div class="choice-row">
+                    <label class="choice"><input type="radio" name="accommodation-status" value="not-included" required><span class="choice-indicator"></span><span>No incluido</span></label>
+                    <label class="choice"><input type="radio" name="accommodation-status" value="included-provided" required><span class="choice-indicator"></span><span>Incluido y proporcionado durante vacaciones</span></label>
+                    <label class="choice"><input type="radio" name="accommodation-status" value="included-not-provided" required><span class="choice-indicator"></span><span>Incluido y no proporcionado durante vacaciones</span></label>
                   </div>
                 </div>
-                <div class="field" role="group" aria-labelledby="vacation-meals-label">
-                  <span id="vacation-meals-label">¿Tuvo comida?</span>
-                  <div class="choice-row binary-choice-row">
-                    <label class="choice"><input type="radio" name="vacation-meals" value="yes" required><span class="choice-indicator"></span><span>Sí</span></label>
-                    <label class="choice"><input type="radio" name="vacation-meals" value="no" required><span class="choice-indicator"></span><span>No</span></label>
+                <div class="field" role="group" aria-labelledby="meals-status-label">
+                  <span id="meals-status-label">Comida (contrato / durante vacaciones)</span>
+                  <div class="choice-row">
+                    <label class="choice"><input type="radio" name="meals-status" value="not-included" required><span class="choice-indicator"></span><span>No incluido</span></label>
+                    <label class="choice"><input type="radio" name="meals-status" value="included-provided" required><span class="choice-indicator"></span><span>Incluido y proporcionado durante vacaciones</span></label>
+                    <label class="choice"><input type="radio" name="meals-status" value="included-not-provided" required><span class="choice-indicator"></span><span>Incluido y no proporcionado durante vacaciones</span></label>
                   </div>
                 </div>
               </div>
