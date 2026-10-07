@@ -15,6 +15,14 @@ const calculationNote=document.querySelector("#calculation-note");
 const legalBase=document.querySelector("#legal-base");
 const legalDismissalMessage=document.querySelector("#legal-dismissal-message");
 const legalResignationMessage=document.querySelector("#legal-resignation-message");
+const legalReferences={
+  dayOvertime:"legal-day-overtime",
+  nightOvertime:"legal-night-overtime",
+  aguinaldo:"legal-aguinaldo",
+  vacationProportional:"legal-vacation",
+  holiday:"legal-holiday",
+  rest:"legal-rest"
+};
 const employmentStart=document.querySelector("#employment-start");
 const employmentEnd=document.querySelector("#employment-end");
 const holidayDaysInput=document.querySelector("#holiday-days");
@@ -669,6 +677,35 @@ function updateResignationFields(){
   updateSpecialDayControlState();
 }
 
+function updatePrintLegalColumns(cause){
+  for(const row of document.querySelectorAll(".result-row")){
+    const result=row.querySelector("[data-result]");
+    const legalCell=row.querySelector("[data-print-legal]");
+
+    if(!result||!legalCell)continue;
+
+    const legalMessageId=
+      result.dataset.result==="dismissalIndemnity"
+        ?cause==="resignation"
+          ?"legal-resignation-message"
+          :"legal-dismissal-message"
+        :legalReferences[result.dataset.result];
+
+    const legalMessage=
+      legalMessageId
+        ?document.getElementById(legalMessageId)
+        :null;
+
+    if(legalMessage){
+      const legalReference=legalMessage.cloneNode(true);
+      legalReference.querySelector("strong")?.remove();
+      legalCell.textContent=legalReference.textContent.trim();
+    }else{
+      legalCell.textContent="";
+    }
+  }
+}
+
 
 /* =========================================================
    CÁLCULO PRINCIPAL
@@ -941,6 +978,8 @@ function calculate(){
   legalResignationMessage.hidden =
     currentCause !== "resignation";
   }
+
+  updatePrintLegalColumns(currentCause);
 
 
   const causeText=

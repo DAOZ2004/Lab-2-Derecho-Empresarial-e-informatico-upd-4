@@ -1225,11 +1225,19 @@
           class="result-list"
         >
 
+          <div class="result-print-header" aria-hidden="true">
+            <span>Concepto</span>
+            <span>Base legal</span>
+            <span>Resultado</span>
+          </div>
+
           <div class="result-row">
 
             <span>
               Horas extras diurnas
             </span>
+
+            <span class="print-legal-base" data-print-legal></span>
 
             <strong data-result="dayOvertime">
               $0.00
@@ -1244,6 +1252,8 @@
               Horas extras nocturnas
             </span>
 
+            <span class="print-legal-base" data-print-legal></span>
+
             <strong data-result="nightOvertime">
               $0.00
             </strong>
@@ -1256,6 +1266,8 @@
             <span>
               Indemnización neta por despido injustificado
             </span>
+
+            <span class="print-legal-base" data-print-legal></span>
 
             <strong data-result="dismissalIndemnity">
               $0.00
@@ -1270,6 +1282,8 @@
               AFP descontada (detalle incluido arriba)
             </span>
 
+            <span class="print-legal-base" data-print-legal></span>
+
             <strong data-result="afpDeduction">
               $0.00
             </strong>
@@ -1282,6 +1296,8 @@
             <span>
               ISSS descontado (detalle incluido arriba)
             </span>
+
+            <span class="print-legal-base" data-print-legal></span>
 
             <strong data-result="isssDeduction">
               $0.00
@@ -1296,6 +1312,8 @@
               Aguinaldo proporcional
             </span>
 
+            <span class="print-legal-base" data-print-legal></span>
+
             <strong data-result="aguinaldo">
               $0.00
             </strong>
@@ -1308,6 +1326,8 @@
             <span>
               Vacaciones proporcionales
             </span>
+
+            <span class="print-legal-base" data-print-legal></span>
 
             <strong data-result="vacationProportional">
               $0.00
@@ -1322,6 +1342,8 @@
               Días de asueto laborados
             </span>
 
+            <span class="print-legal-base" data-print-legal></span>
+
             <strong data-result="holiday">
               $0.00
             </strong>
@@ -1334,6 +1356,8 @@
             <span>
               Días de descanso semanal
             </span>
+
+            <span class="print-legal-base" data-print-legal></span>
 
             <strong data-result="rest">
               $0.00
@@ -1379,12 +1403,12 @@
 
   <div class="legal-messages">
 
-    <p class="legal-message">
+    <p id="legal-vacation" class="legal-message">
       <strong>Vacaciones proporcionales:</strong>
       Arts. 177 y 187 del Código de Trabajo.
     </p>
 
-    <p class="legal-message">
+    <p id="legal-aguinaldo" class="legal-message">
       <strong>Aguinaldo proporcional:</strong>
       Arts. 196–198 del Código de Trabajo.
     </p>
@@ -1406,22 +1430,22 @@
       Arts. 2, 5, 8 y 9 de la Ley Reguladora de la Prestación Económica por Renuncia Voluntaria.
     </p>
 
-    <p class="legal-message">
+    <p id="legal-day-overtime" class="legal-message">
       <strong>Horas extras diurnas:</strong>
       Art. 169 del Código de Trabajo.
     </p>
 
-    <p class="legal-message">
+    <p id="legal-night-overtime" class="legal-message">
       <strong>Horas extras nocturnas:</strong>
       Arts. 168 y 169 del Código de Trabajo.
     </p>
 
-    <p class="legal-message">
+    <p id="legal-holiday" class="legal-message">
       <strong>Días de asueto laborados:</strong>
       Art. 192 del Código de Trabajo.
     </p>
 
-    <p class="legal-message">
+    <p id="legal-rest" class="legal-message">
       <strong>Descanso semanal laborado:</strong>
       Arts. 175 y 176 del Código de Trabajo.
     </p>

@@ -107,6 +107,7 @@ h1 em { color: var(--forest-bright); font-style: normal; }
 .result-row { display: flex; min-height: 39px; align-items: center; justify-content: space-between; gap: 14px; border-bottom: 1px solid #d5dfda; color: #556761; font-size: 12px; }
 .result-row[hidden] { display: none; }
 .result-row strong { color: var(--ink); font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.result-print-header, .print-legal-base { display: none; }
 .total-row { display: flex; min-height: 64px; align-items: center; justify-content: space-between; gap: 16px; margin-top: 8px; padding: 0 14px; background: var(--forest); color: #fff; }
 .total-row span { font-size: 10px; font-weight: 700; letter-spacing: .09em; }
 .total-row strong { color: #d6eadf; font-family: var(--font-display); font-size: 24px; font-variant-numeric: tabular-nums; white-space: nowrap; }
@@ -117,7 +118,48 @@ h1 em { color: var(--forest-bright); font-style: normal; }
 .site-footer { display: flex; justify-content: space-between; gap: 20px; padding: 18px clamp(22px, 6vw, 88px); border-top: 1px solid #dce4e0; color: #76847f; font-size: 9px; font-weight: 600; letter-spacing: .08em; }
 @media (max-width: 980px) { .layout { grid-template-columns: minmax(0, 1fr); gap: 35px; padding-top: 44px; } .intro { position: static; } .intro-copy { max-width: 540px; } .intro-rule { margin-top: 22px; } .intro-foot { max-width: 480px; } }
 @media (max-width: 600px) { .topbar { height: 58px; padding: 0 18px; } .topbar-note { font-size: 8px; letter-spacing: .08em; } .layout { gap: 27px; padding: 35px 16px 42px; } h1 { font-size: 42px; } .form-section { padding: 22px 18px; } .fields-grid { gap: 14px 11px; } .field { font-size: 11px; } .field small { display: block; margin: 2px 0 0; } .choice-row { gap: 8px; } .choice { flex-basis: 100%; } .holiday-list { grid-template-columns: 1fr; } .form-actions { align-items: stretch; flex-direction: column; padding: 15px 18px; } .calculate-button { width: 100%; } .results { padding: 22px 17px 19px; } .result-row { font-size: 11px; } .result-row strong { font-size: 11px; } .total-row { padding: 0 10px; } .total-row span { max-width: 130px; line-height: 1.4; } .total-row strong { font-size: 20px; } .site-footer { flex-direction: column; gap: 6px; padding: 16px 18px; } }
-@media print { body { background: white; } .topbar, .intro, #calculator, .site-footer, .print-button { display: none !important; } .layout { display: block; max-width: none; padding: 0; } .workspace { width: 100%; } .results { margin: 0; border: 0; background: white; } .print-worker-name:not(:empty) { display: block; margin: 0 0 12px; color: #143b35; font-size: 12px; font-weight: 700; } }
+@media print {
+  body { background: white; }
+  .topbar, .intro, #calculator, .site-footer, .print-button { display: none !important; }
+  .layout { display: block; max-width: none; padding: 0; }
+  .workspace { width: 100%; }
+  .results { margin: 0; border: 0; background: white; }
+  .print-worker-name:not(:empty) { display: block; margin: 0 0 12px; color: #143b35; font-size: 12px; font-weight: 700; }
+  .result-print-header, .result-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.3fr) minmax(70px, .6fr);
+    gap: 10px;
+  }
+  .result-print-header {
+    padding: 8px 0;
+    border-bottom: 1px solid #aebdb6;
+    color: #143b35;
+    font-size: 10px;
+    font-weight: 700;
+  }
+  .result-print-header span:last-child {
+    text-align: right;
+  }
+  .result-row {
+    min-height: 0;
+    align-items: start;
+    justify-content: initial;
+    padding: 8px 0;
+    font-size: 10px;
+  }
+  .result-row strong {
+    justify-self: end;
+    text-align: right;
+    font-size: 10px;
+  }
+  .print-legal-base {
+    display: block;
+    color: #556761;
+    font-size: 9px;
+    line-height: 1.4;
+  }
+  #legal-base { display: none !important; }
+}
 
 /* =========================================================
    MENSAJES DE BASE LEGAL
